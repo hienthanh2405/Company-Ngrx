@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Location } from '@angular/common';
-import { FormGroup, FormBuilder } from '@angular/forms'
-import { DeleteCompanyActionSucces } from 'src/app/actions/company.actions';
+import { FormGroup } from '@angular/forms'
+// import { DeleteCompanyActionSucces } from 'src/app/actions/company.actions';
 
 @Component({
   selector: 'app-addcompany',
@@ -15,26 +15,22 @@ import { DeleteCompanyActionSucces } from 'src/app/actions/company.actions';
   styleUrls: ['./addcompany.component.css']
 })
 export class AddcompanyComponent implements OnInit {
+  form : FormGroup;
 
   constructor(
-    private companyService : CompanyService ,
+    private companyService : CompanyService,
     private router : Router,
     private store: Store<AppState>,
     private location: Location
-    ) { }
+    ) {}
 
   ngOnInit() {
   }
 
-
-
-  onClickCreate(createCompanyForm){
-
-    console.log(createCompanyForm,"abc");
-
+  onSubmit(form){
     let com = {
-      nameCompany : createCompanyForm.value.nameCompany,
-      titleCompany : createCompanyForm.value.titleCompany
+      nameCompany : form.value.nameCompany,
+      titleCompany : form.value.titleCompany
     };
 
     console.log(com);
@@ -43,9 +39,9 @@ export class AddcompanyComponent implements OnInit {
       data => {
         console.log("POST Request is successful ");
         this.companyService.getCompanies().subscribe(res => {
-          console.log("chay duoc roi" , data);
-          // this.store.dispatch(new DeleteCompanyActionSucces()),
-          this.router.navigate(['\company']);
+          console.log("chay roi, mung qua");
+          // this.store.dispatch(new CompanyActions.DeleteCompany(res)),
+          this.router.navigate(['listcompany']);
         });
         
       },
@@ -53,6 +49,4 @@ export class AddcompanyComponent implements OnInit {
         console.log("Error", error);
       });
     }
-    
-
 }

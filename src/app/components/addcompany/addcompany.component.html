@@ -1,11 +1,11 @@
-
+<!-- 
 
 <div class="container">
   <div class="row">
     <h2><strong>Add Company</strong></h2><br />
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-      <form #createCompanyForm="ngForm" (ngSubmit)="onClickCreate(createCompanyForm)">
+      <form  (ngSubmit)="onClickCreate(createCompanyForm)">
         <div class="form-group">
           <label for="exampleInputEmail1">Title Company</label>
           <input type="text" class="form-control" id="titleCompany" ngModel name="titleCompany" placeholder="Enter title company">
@@ -21,4 +21,53 @@
       
     </div>
   </div>
+</div> -->
+
+
+<h3 class="tittle" style="text-align: center;padding-top: 10px;">Register Company</h3>
+<div class="inner-sec">
+  <div class="login p-5 bg-light mx-auto mw-100">
+
+    <form  #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+      <div class="form-group">
+        <label for="nameCompany">Company Name</label>
+        <input class="form-control" type="text" ngModel name="nameCompany" required/>
+      </div>
+
+      <div class="form-group">
+          <label for="titleCompany">Title</label>
+          <input class="form-control" type="text" ngModel name="titleCompany" required/>
+        </div>
+
+      <div class="form-group">
+        <button class="form-control btn btn-primary" type="submit">Register</button>
+      </div>
+
+    </form>
+  </div>
 </div>
+
+
+
+<!-- <h3 class="tittle" style="text-align: center;padding-top: 10px;">Register Company</h3>
+<div class="inner-sec">
+  <div class="login p-5 bg-light mx-auto mw-100">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+      <div class="form-group">
+        <label for="nameCompany">Company Name</label>
+        <input class="form-control" type="text" name="nameCompany" />
+      </div>
+
+      <div class="form-group">
+          <label for="titleCompany">Company Title</label>
+          <input class="form-control" type="text" name="titleCompany" />
+        </div>
+
+      <div class="form-group">
+        <button class="form-control btn btn-primary" type="submit">Register</button>
+      </div>
+
+    </form>
+  </div>
+</div> -->

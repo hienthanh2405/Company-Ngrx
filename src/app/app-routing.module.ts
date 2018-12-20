@@ -4,15 +4,15 @@ import { ListcompanyComponent } from './components/listcompany/listcompany.compo
 import { AddcompanyComponent } from './components/addcompany/addcompany.component';
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 
-const routes: Routes = [
+const routers: Routes = [
   { path: '', component: ListcompanyComponent },
   { path: 'listcompany', component: ListcompanyComponent },
   { path: 'addcompany', component: AddcompanyComponent },
-  { path: 'editcompany', component: EditcompanyComponent }
+  { path: 'editcompany/:globalID', component: EditcompanyComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routers)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

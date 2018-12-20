@@ -11,6 +11,7 @@ import {CompanyEffect} from './effects/company.effect';
 import { ListcompanyComponent } from './components/listcompany/listcompany.component';
 import { AddcompanyComponent } from './components/addcompany/addcompany.component';
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,6 +23,8 @@ import { EditcompanyComponent } from './components/editcompany/editcompany.compo
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     EffectsModule.forRoot([CompanyEffect]),
