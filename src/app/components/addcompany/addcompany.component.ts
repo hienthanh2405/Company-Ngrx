@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Location } from '@angular/common';
 import { FormGroup } from '@angular/forms'
-import { AddCompanyActionSucces } from 'src/app/actions/company.actions';
+import { AddCompanyActionSucces, GetListCompanyAction } from 'src/app/actions/company.actions';
 // import { DeleteCompanyActionSucces } from 'src/app/actions/company.actions';
 
 @Component({
@@ -27,9 +27,7 @@ export class AddcompanyComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.store.select('companyList').subscribe((data) => { 
-      this.listCompany = data, console.log(data[0],"dto")
-    });
+  
   }
 
   onSubmit(form){
@@ -39,20 +37,8 @@ export class AddcompanyComponent implements OnInit {
     };
 
     this.store.dispatch(new AddCompanyActionSucces(com));
+    this.store.dispatch(new GetListCompanyAction());
     this.router.navigate(['listcompany']);
-
-    // this.companyService.createCompany(com).subscribe(
-    //   data => {
-    //     this.companyService.getCompanies().subscribe(res => {
-    //       console.log("chay roi, mung qua");
-    //       // this.store.dispatch(new CompanyActions.DeleteCompany(res)),
-    //       this.router.navigate(['listcompany']);
-    //     });
-        
-    //   },
-    //   error => {
-    //     console.log("Error", error);
-    //   });
-    // }
+    
   }
 }

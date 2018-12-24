@@ -17,12 +17,13 @@ export function CompanyReducer(
         case CompanyActions.ACTION_GET_COMPANY_SUCCESS:
             return [...state, action.payload];
         case CompanyActions.ACTION_ADD_COMPANY_SUCCESS:
-            return [...state, action.payload];
+            return [...state];
         case CompanyActions.ACTION_UPDATE_COMPANY_SUCCESS:
-            return [...state, action.payload];
+            return [...state];
         case CompanyActions.ACTION_DELETE_COMPANY_SUCCESS:
-            return [...state, action.globalId];
+            return [...state];
         
+            
         default:
             return state;
     }

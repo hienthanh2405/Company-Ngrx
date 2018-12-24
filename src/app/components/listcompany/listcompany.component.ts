@@ -26,43 +26,24 @@ export class ListcompanyComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) =>
       {this.globalId =  params.get('globalId');
     });
+
+    
   }
   
   ngOnInit() {
-    this.store.select('companyList').subscribe((data) => { 
-      this.listCompany = data, console.log(data[0],"dto")
+    this.store.select('companyList').subscribe((data : any) => { 
+      this.listCompany = data, console.log(data,"dto")
     });
   }
 
   onDelete(globalId){
     if(confirm("Press a button delete")){
       this.store.dispatch(new DeleteCompanyActionSucces(globalId));
-      this.store.select("companies").subscribe(res => {
-        this.listCompany = res;
-      });
+      this.store.dispatch(new GetListCompanyAction());
     }
     else{
       alert('Unsuccessfull');
     }
   }
-
-  //Function delete
-  // onDelete(globalId) {
-  //   if (confirm("Press a button!")) {
-  //     this.companyService.deleteCompany(globalId).subscribe(res => {
-  //         this.companyService.getCompanies().subscribe(data => {
-  //           (this.listCompany = data),
-  //             this.store.dispatch(new GetListCompanyAction);
-  //             this.store.select("companies").subscribe(res => {
-  //             this.listCompany = res
-  //           });
-  //         });
-  //     }
-  //     );
-  //   } 
-  //   else {
-  //     alert("unsuccessful !");
-  //   }
-  // }  
 
 }

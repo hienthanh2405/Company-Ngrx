@@ -29,9 +29,6 @@ export class EditcompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('company').subscribe((data) => {
-      this.conpanySelected = data, console.log(data, "dto")
-    });
    }
 
   onClickEdit(form){
@@ -41,6 +38,7 @@ export class EditcompanyComponent implements OnInit {
     };
 
     this.store.dispatch(new UpdateCompanyActionSucces(this.globalId, com));
+    this.store.dispatch(new GetListCompanyAction());
     this.router.navigate(['listcompany']);
 
   }

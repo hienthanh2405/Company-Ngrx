@@ -4,7 +4,7 @@ import * as CompanyActions from '../actions/company.actions';
 import { CompanyService } from '../services/company.service';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { GetListCompanyActionSucces } from '../actions/company.actions';
+import { GetListCompanyActionSucces, GetListCompanyAction } from '../actions/company.actions';
 
 
 export type Action = CompanyActions.ALL;
@@ -38,8 +38,7 @@ export class CompanyEffect {
       return this.companyService
         .createCompany(action.payload)
         .pipe(map(result => {
-          console.log('addeffect', result);
-          return new GetListCompanyActionSucces(result);
+          return new GetListCompanyAction();
         }))
     })
   )
@@ -49,12 +48,11 @@ export class CompanyEffect {
   updateCompany$ = this.actions.pipe(
     ofType(CompanyActions.ACTION_UPDATE_COMPANY_SUCCESS),
     switchMap((action: CompanyActions.UpdateCompanyActionSucces) => {
-      console.log(action.globalId, action.payload)
+      // console.log(action.globalId, action.payload)
       return this.companyService
         .updateCompamy(action.globalId, action.payload)
         .pipe(map(result => {
-          console.log('addeffect', result);
-          new GetListCompanyActionSucces(result);
+          return new GetListCompanyAction();
         }))
     })
   )
@@ -67,7 +65,7 @@ export class CompanyEffect {
       return this.companyService
         .deleteCompany(action.globalId)
         .pipe(map(result => {
-          new GetListCompanyActionSucces(result);
+          return new GetListCompanyAction();
         }))
     })
   )
