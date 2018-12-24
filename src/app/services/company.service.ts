@@ -22,18 +22,22 @@ export class CompanyService {
     }
 
     getCompanies(): Observable<Company[]>{
-      return this.http.get<Company[]>(this.httpBase + 'company/getlistcompany');
+      return this.http.get<Company[]>(this.httpBase + 'company');
     }
+    
+    getCompanySelected(globalId: any){
+      return this.http.get<Company>(this.httpBase + 'company/' + globalId);
+    } 
 
     createCompany(company: any):Observable<any> {
-      return this.http.post<Response>(this.httpBase + 'company/createcompany', company);
+      return this.http.post<Response>(this.httpBase + 'company', company);
     }
 
-    deleteCompany(globalID: any){
-      return this.http.delete<Response>(this.httpBase + 'company/deletecompany/' + globalID);
+    deleteCompany(globalId: any){
+      return this.http.delete<Response>(this.httpBase + 'company/' + globalId);
     }
 
-    updateCompamy(globalID: any , company: any) {
-      return this.http.put<Response>(this.httpBase + 'company/updatecompany/' + globalID,company);
+    updateCompamy(globalId: any , company: any) {
+      return this.http.put<Response>(this.httpBase + 'company/' + globalId,company);
     }
 }

@@ -8,7 +8,7 @@ const routers: Routes = [
   { path: '', component: ListcompanyComponent },
   { path: 'listcompany', component: ListcompanyComponent },
   { path: 'addcompany', component: AddcompanyComponent },
-  { path: 'editcompany/:globalID', component: EditcompanyComponent }
+  { path: 'editcompany/:globalId', component: EditcompanyComponent }
 ];
 
 @NgModule({

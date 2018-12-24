@@ -29,7 +29,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HttpClientModule,
     EffectsModule.forRoot([CompanyEffect]),
     StoreModule.forRoot({
-      companyList: CompanyReducer
+      companyList: CompanyReducer,
+      company: CompanyReducer
     })
   ],
   providers: [],

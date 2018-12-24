@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Location } from '@angular/common';
 import { FormGroup } from '@angular/forms'
+import { AddCompanyActionSucces } from 'src/app/actions/company.actions';
 // import { DeleteCompanyActionSucces } from 'src/app/actions/company.actions';
 
 @Component({
@@ -16,6 +17,7 @@ import { FormGroup } from '@angular/forms'
 })
 export class AddcompanyComponent implements OnInit {
   form : FormGroup;
+  listCompany: Company[];
 
   constructor(
     private companyService : CompanyService,
@@ -25,6 +27,9 @@ export class AddcompanyComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    this.store.select('companyList').subscribe((data) => { 
+      this.listCompany = data, console.log(data[0],"dto")
+    });
   }
 
   onSubmit(form){
@@ -33,20 +38,21 @@ export class AddcompanyComponent implements OnInit {
       titleCompany : form.value.titleCompany
     };
 
-    console.log(com);
+    this.store.dispatch(new AddCompanyActionSucces(com));
+    this.router.navigate(['listcompany']);
 
-    this.companyService.createCompany(com).subscribe(
-      data => {
-        console.log("POST Request is successful ");
-        this.companyService.getCompanies().subscribe(res => {
-          console.log("chay roi, mung qua");
-          // this.store.dispatch(new CompanyActions.DeleteCompany(res)),
-          this.router.navigate(['listcompany']);
-        });
+    // this.companyService.createCompany(com).subscribe(
+    //   data => {
+    //     this.companyService.getCompanies().subscribe(res => {
+    //       console.log("chay roi, mung qua");
+    //       // this.store.dispatch(new CompanyActions.DeleteCompany(res)),
+    //       this.router.navigate(['listcompany']);
+    //     });
         
-      },
-      error => {
-        console.log("Error", error);
-      });
-    }
+    //   },
+    //   error => {
+    //     console.log("Error", error);
+    //   });
+    // }
+  }
 }

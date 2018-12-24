@@ -4,8 +4,7 @@ import * as CompanyActions from '../actions/company.actions';
 import { CompanyService } from '../services/company.service';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { GetListCompanyAction, GetListCompanyActionSucces } from '../actions/company.actions';
-import { CompanyToAdd } from '../models/companytoadd.model';
+import { GetListCompanyActionSucces } from '../actions/company.actions';
 
 
 export type Action = CompanyActions.ALL;
@@ -18,6 +17,7 @@ export class CompanyEffect {
     private companyService: CompanyService
   ) { }
 
+  //Get List Company
   @Effect()
   companyList$ = this.actions.pipe(
     ofType(CompanyActions.ACTION_GET_LIST_COMPANY),
@@ -25,23 +25,52 @@ export class CompanyEffect {
       return this.companyService
         .getCompanies()
         .pipe(map(companyList => {
-          //  console.log("effect", companyList);
           return new GetListCompanyActionSucces(companyList);
         }))
     })
   )
 
-
+  // Add Company
   @Effect()
   addCompany$ = this.actions.pipe(
     ofType(CompanyActions.ACTION_ADD_COMPANY_SUCCESS),
     switchMap((action: CompanyActions.AddCompanyActionSucces) => {
       return this.companyService
-        .createCompany(CompanyToAdd)
-        .pipe(map(companyList => {
-          return new GetListCompanyActionSucces(companyList);
+        .createCompany(action.payload)
+        .pipe(map(result => {
+          console.log('addeffect', result);
+          return new GetListCompanyActionSucces(result);
         }))
     })
   )
+
+  //Update Company
+  @Effect()
+  updateCompany$ = this.actions.pipe(
+    ofType(CompanyActions.ACTION_UPDATE_COMPANY_SUCCESS),
+    switchMap((action: CompanyActions.UpdateCompanyActionSucces) => {
+      console.log(action.globalId, action.payload)
+      return this.companyService
+        .updateCompamy(action.globalId, action.payload)
+        .pipe(map(result => {
+          console.log('addeffect', result);
+          new GetListCompanyActionSucces(result);
+        }))
+    })
+  )
+
+  //Delete Company
+  @Effect()
+  deleteCompany$ = this.actions.pipe(
+    ofType(CompanyActions.ACTION_DELETE_COMPANY_SUCCESS),
+    switchMap((action: CompanyActions.DeleteCompanyActionSucces) => {
+      return this.companyService
+        .deleteCompany(action.globalId)
+        .pipe(map(result => {
+          new GetListCompanyActionSucces(result);
+        }))
+    })
+  )
+
 
 }

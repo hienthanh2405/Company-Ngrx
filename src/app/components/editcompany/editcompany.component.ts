@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppState } from 'src/app/app.state';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+import { Company } from 'src/app/models/company.model';
+import { GetListCompanyAction, GetCompanyActionSucces, UpdateCompanyActionSucces } from 'src/app/actions/company.actions';
 
 @Component({
   selector: 'app-editcompany',
@@ -11,7 +13,9 @@ import { Store } from '@ngrx/store';
 })
 export class EditcompanyComponent implements OnInit {
 
-  globalID: any;
+  globalId: any;
+  conpanySelected: Company;
+  // companySelected = this.store.pipe(select())
 
   constructor(
     private companyService : CompanyService,
@@ -20,11 +24,15 @@ export class EditcompanyComponent implements OnInit {
     private store: Store<AppState>
   ) { 
     this.route.paramMap.subscribe((params: ParamMap) =>
-      {this.globalID =  params.get('globalID');
+      {this.globalId =  params.get('globalId');
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.store.select('company').subscribe((data) => {
+      this.conpanySelected = data, console.log(data, "dto")
+    });
+   }
 
   onClickEdit(form){
     let com = {
@@ -32,16 +40,8 @@ export class EditcompanyComponent implements OnInit {
       titleCompany : form.value.titleCompany
     };
 
-    this.companyService.updateCompamy(this.globalID,com).subscribe(
-      data => {
-        console.log("Edit request is successful ", data);
-        this.companyService.getCompanies().subscribe(res => {
-          this.router.navigate(['listcompany']);
-        });
+    this.store.dispatch(new UpdateCompanyActionSucces(this.globalId, com));
+    this.router.navigate(['listcompany']);
 
-      },
-      error => {
-        console.log("Error", error);
-      });
   }
 }
