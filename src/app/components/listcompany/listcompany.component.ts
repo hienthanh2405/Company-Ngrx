@@ -23,7 +23,6 @@ export class ListcompanyComponent implements OnInit {
   ;
 
  constructor(private store: Store<AppState>,
-   private companyService: CompanyService,
    private route : ActivatedRoute,
    ) {
     this.store.dispatch(new GetListCompanyAction());

@@ -21,10 +21,8 @@ export class AddcompanyComponent implements OnInit {
   listCompany: Company[];
 
   constructor(
-    private companyService : CompanyService,
     private router : Router,
-    private store: Store<AppState>,
-    private location: Location
+    private store: Store<AppState>
     ) {}
 
   ngOnInit() { }

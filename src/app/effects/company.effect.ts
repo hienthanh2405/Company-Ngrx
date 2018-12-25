@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import * as CompanyActions from '../actions/company.actions';
 import { CompanyService } from '../services/company.service';
-import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { GetListCompanyActionSucces, GetListCompanyAction } from '../actions/company.actions';
 

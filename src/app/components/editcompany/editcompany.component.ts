@@ -20,7 +20,6 @@ export class EditcompanyComponent implements OnInit {
   listCompany : Company[];
 
   constructor(
-    private companyService : CompanyService,
     private route : ActivatedRoute,
     private router : Router,
     private store: Store<AppState>
