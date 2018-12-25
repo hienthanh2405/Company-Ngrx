@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { GetListCompanyActionSucces, GetListCompanyAction } from '../actions/company.actions';
 
-
 export type Action = CompanyActions.ALL;
 
 @Injectable()

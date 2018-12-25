@@ -5,6 +5,7 @@ import { AppState } from 'src/app/app.state';
 import { Store, select } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
 import { GetListCompanyAction, GetCompanyActionSucces, UpdateCompanyActionSucces } from 'src/app/actions/company.actions';
+import { CompanySelectors } from 'src/app/selectors/company.selectors';
 
 @Component({
   selector: 'app-editcompany',
@@ -16,6 +17,7 @@ export class EditcompanyComponent implements OnInit {
   globalId: any;
   conpanySelected: Company;
   // companySelected = this.store.pipe(select())
+  listCompany : Company[];
 
   constructor(
     private companyService : CompanyService,
@@ -28,8 +30,7 @@ export class EditcompanyComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-   }
+  ngOnInit() { }
 
   onClickEdit(form){
     let com = {
@@ -38,8 +39,7 @@ export class EditcompanyComponent implements OnInit {
     };
 
     this.store.dispatch(new UpdateCompanyActionSucces(this.globalId, com));
-    this.store.dispatch(new GetListCompanyAction());
+    new CompanySelectors(this.store).companyList$.subscribe(data => this.listCompany = data);
     this.router.navigate(['listcompany']);
-
   }
 }

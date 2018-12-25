@@ -33,10 +33,7 @@ export class ListcompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.store.select('companyList').subscribe((data : any) => { 
-    //   this.listCompany = data, console.log(data,"dto")
-    // });
-    new CompanySelectors(this.store).companyList$.subscribe(data => this.listCompany = data);
+    new CompanySelectors(this.store).companyList$.subscribe((data : any) => {this.listCompany = data, console.log(data, "data")});
   }
 
   onDelete(globalId){

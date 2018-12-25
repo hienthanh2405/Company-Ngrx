@@ -8,6 +8,7 @@ import { AppState } from 'src/app/app.state';
 import { Location } from '@angular/common';
 import { FormGroup } from '@angular/forms'
 import { AddCompanyActionSucces, GetListCompanyAction } from 'src/app/actions/company.actions';
+import { CompanySelectors } from 'src/app/selectors/company.selectors';
 // import { DeleteCompanyActionSucces } from 'src/app/actions/company.actions';
 
 @Component({
@@ -26,9 +27,7 @@ export class AddcompanyComponent implements OnInit {
     private location: Location
     ) {}
 
-  ngOnInit() {
-  
-  }
+  ngOnInit() { }
 
   onSubmit(form){
     let com = {
@@ -37,7 +36,7 @@ export class AddcompanyComponent implements OnInit {
     };
 
     this.store.dispatch(new AddCompanyActionSucces(com));
-    this.store.dispatch(new GetListCompanyAction());
+    new CompanySelectors(this.store).companyList$.subscribe(data => this.listCompany = data);
     this.router.navigate(['listcompany']);
     
   }
