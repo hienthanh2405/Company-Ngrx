@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 
 export const ACTION_GET_LIST_COMPANY = 'Company_Get_List';
 export const ACTION_GET_LIST_COMPANY_SUCCESS = 'Company_Get_List_Succes';
+export const ACTION_GET_COMPANY = 'Company_Get';
 export const ACTION_GET_COMPANY_SUCCESS = 'Company_Get_Succes';
 export const ACTION_ADD_COMPANY_SUCCESS = 'Company_Add_Succes';
 export const ACTION_UPDATE_COMPANY_SUCCESS = 'Company_Update_Succes';
@@ -17,6 +18,12 @@ export class GetListCompanyActionSucces implements Action {
     readonly type = ACTION_GET_LIST_COMPANY_SUCCESS;
     constructor(public payload: any) { }
 }
+
+export class GetCompanyAction implements Action {
+    readonly type = ACTION_GET_COMPANY;
+    constructor(public globalId : string) { }
+}
+
 
 export class GetCompanyActionSucces implements Action {
     readonly type = ACTION_GET_COMPANY_SUCCESS;
@@ -35,9 +42,8 @@ export class UpdateCompanyActionSucces implements Action {
 
 export class DeleteCompanyActionSucces implements Action {
     readonly type = ACTION_DELETE_COMPANY_SUCCESS;
-    // constructor(public payload: any) { }
     constructor(public globalId: any){}
 }
 
 export type ALL = GetListCompanyAction | DeleteCompanyActionSucces | UpdateCompanyActionSucces
- | GetListCompanyActionSucces | AddCompanyActionSucces | GetCompanyActionSucces;
+ | GetListCompanyActionSucces | AddCompanyActionSucces | GetCompanyActionSucces | GetCompanyAction;

@@ -18,7 +18,6 @@ import { store } from '@angular/core/src/render3/instructions';
 export class ListcompanyComponent implements OnInit {
   companies$: Observable<Company[]>;
   listCompany: Company[];
-  companyList: Company[];
   globalId: any;
   ;
 
@@ -32,7 +31,9 @@ export class ListcompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    new CompanySelectors(this.store).companyList$.subscribe((data : any) => {this.listCompany = data, console.log(data, "data")});
+    new CompanySelectors(this.store).companyList$.subscribe((data : any) => {this.listCompany = data, console.log(this.listCompany, "data")});
+
+    // console.log(abc, "listcomapny");
   }
 
   onDelete(globalId){

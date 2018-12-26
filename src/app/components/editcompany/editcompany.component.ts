@@ -4,8 +4,9 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppState } from 'src/app/app.state';
 import { Store, select } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
-import { GetListCompanyAction, GetCompanyActionSucces, UpdateCompanyActionSucces } from 'src/app/actions/company.actions';
+import { GetListCompanyAction, GetCompanyActionSucces, UpdateCompanyActionSucces, GetCompanyAction } from 'src/app/actions/company.actions';
 import { CompanySelectors } from 'src/app/selectors/company.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-editcompany',
@@ -13,10 +14,8 @@ import { CompanySelectors } from 'src/app/selectors/company.selectors';
   styleUrls: ['./editcompany.component.css']
 })
 export class EditcompanyComponent implements OnInit {
-
   globalId: any;
-  conpanySelected: Company;
-  // companySelected = this.store.pipe(select())
+  company: Company;
   listCompany : Company[];
 
   constructor(
@@ -26,10 +25,14 @@ export class EditcompanyComponent implements OnInit {
   ) { 
     this.route.paramMap.subscribe((params: ParamMap) =>
       {this.globalId =  params.get('globalId');
+      this.store.dispatch(new GetCompanyAction(this.globalId));
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    new CompanySelectors(this.store).companyDetail$
+    .subscribe((data: any) => {this.company = data, console.log(this.company, "data123")});
+   }
 
   onClickEdit(form){
     let com = {

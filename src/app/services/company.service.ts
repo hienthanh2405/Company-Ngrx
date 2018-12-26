@@ -25,7 +25,7 @@ export class CompanyService {
       return this.http.get<Company[]>(this.httpBase + 'company');
     }
     
-    getCompanySelected(globalId: any){
+    getCompanyById(globalId: any){
       return this.http.get<Company>(this.httpBase + 'company/' + globalId);
     } 
 

@@ -3,7 +3,8 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import * as CompanyActions from '../actions/company.actions';
 import { CompanyService } from '../services/company.service';
 import { map, switchMap } from 'rxjs/operators';
-import { GetListCompanyActionSucces, GetListCompanyAction } from '../actions/company.actions';
+import { GetListCompanyActionSucces, GetListCompanyAction, GetCompanyActionSucces } from '../actions/company.actions';
+import { Company } from '../models/company.model';
 
 export type Action = CompanyActions.ALL;
 
@@ -24,6 +25,20 @@ export class CompanyEffect {
         .getCompanies()
         .pipe(map(companyList => {
           return new GetListCompanyActionSucces(companyList);
+        }))
+    })
+  )
+
+  // //Get detail Company
+  @Effect()
+  company$ = this.actions.pipe(
+    ofType(CompanyActions.ACTION_GET_COMPANY),
+    switchMap((action: CompanyActions.GetCompanyAction) => {
+      return this.companyService
+        .getCompanyById(action.globalId)
+        .pipe(map(result => {
+          // console.log(result, "effect comapny");
+          return new GetCompanyActionSucces(result);
         }))
     })
   )

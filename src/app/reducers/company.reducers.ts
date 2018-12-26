@@ -14,6 +14,8 @@ export function CompanyReducer(
         case CompanyActions.ACTION_GET_LIST_COMPANY_SUCCESS:
             state = [];
             return [...state, action.payload];
+        case CompanyActions.ACTION_GET_COMPANY:
+            return state;    
         case CompanyActions.ACTION_GET_COMPANY_SUCCESS:
             return [...state, action.payload];
         case CompanyActions.ACTION_ADD_COMPANY_SUCCESS:
@@ -22,7 +24,6 @@ export function CompanyReducer(
             return [...state];
         case CompanyActions.ACTION_DELETE_COMPANY_SUCCESS:
             return [...state];
-        
             
         default:
             return state;

@@ -7,11 +7,13 @@ import { Company } from "../models/company.model";
 @Injectable()
 export class CompanySelectors {
   public companyList$ : Observable<Company[]>;
+  public companyDetail$ : Observable<Company>;
 
   constructor(
     private store: Store<any>
   ) {
     this.companyList$ = store.select('companyList');
-    console.log(store.select('companyList'), "companylist");
+    this.companyDetail$ = store.select('company');
+    console.log(this.companyDetail$, "companyDetail");
   }
 }
