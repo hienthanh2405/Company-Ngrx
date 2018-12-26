@@ -31,19 +31,16 @@ export class ListcompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    new CompanySelectors(this.store).companyList$.subscribe((data : any) => {this.listCompany = data, console.log(this.listCompany, "data")});
-
-    // console.log(abc, "listcomapny");
+    let abc = new CompanySelectors(this.store).companyList$.subscribe((data : any) => {this.listCompany = data.companyList});
   }
 
   onDelete(globalId){
     if(confirm("Press a button delete")){
       this.store.dispatch(new DeleteCompanyActionSucces(globalId));
-      new CompanySelectors(this.store).companyList$.subscribe(data => this.listCompany = data);
+      new CompanySelectors(this.store).companyList$.subscribe((data: any) => {this.listCompany = data.companyList});
     }
     else{
       alert('Unsuccessfull');
     }
   }
-
 }
