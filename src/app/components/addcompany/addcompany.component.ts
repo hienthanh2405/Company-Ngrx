@@ -34,7 +34,6 @@ export class AddcompanyComponent implements OnInit {
     };
 
     this.store.dispatch(new AddCompanyActionSucces(com));
-    new CompanySelectors(this.store).companyList$.subscribe(data => this.listCompany = data);
     this.router.navigate(['listcompany']);
   }
 }

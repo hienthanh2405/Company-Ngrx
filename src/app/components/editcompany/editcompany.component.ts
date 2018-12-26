@@ -25,13 +25,13 @@ export class EditcompanyComponent implements OnInit {
   ) { 
     this.route.paramMap.subscribe((params: ParamMap) =>
       {this.globalId =  params.get('globalId');
-      this.store.dispatch(new GetCompanyAction(this.globalId));
     });
   }
 
   ngOnInit() {
+    this.store.dispatch(new GetCompanyAction(this.globalId));
     new CompanySelectors(this.store).companyDetail$
-    .subscribe((data: any) => {this.company = data.company, console.log(this.company, "data123")});
+    .subscribe((data: any) => {this.company = data.company});
    }
 
   onClickEdit(form){
@@ -41,7 +41,6 @@ export class EditcompanyComponent implements OnInit {
     };
 
     this.store.dispatch(new UpdateCompanyActionSucces(this.globalId, com));
-    new CompanySelectors(this.store).companyList$.subscribe((data: any) => this.listCompany = data.company);
     this.router.navigate(['listcompany']);
   }
 }

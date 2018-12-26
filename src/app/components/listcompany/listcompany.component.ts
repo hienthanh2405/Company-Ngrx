@@ -25,6 +25,7 @@ export class ListcompanyComponent implements OnInit {
    private route : ActivatedRoute,
    ) {
     this.store.dispatch(new GetListCompanyAction());
+    //get globalId from url for function delete
     this.route.paramMap.subscribe((params: ParamMap) =>
       {this.globalId =  params.get('globalId');
     });
